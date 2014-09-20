@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Memorabilis</title>
+        <meta name="description" content="Notas">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/notas.css">
+        <style>
+            [ng\:cloak], [ng-cloak], .ng-cloak {
+            display: none !important;
+            }
+        </style>
+
+    </head>
+    <body ng-app="appMemorabilis">
+
+        <section class="contenedorPrincipal">           
+
+            <header class="titularPrincipal" ng-controller='notasHeader'>
+                <div class="row">                
+                    <h1 class="col-xs-7 col-sm-7 col-md-7">Memorabilis</h1>
+                    <nav class="icosCabecera col-xs-5 col-sm-5 col-md-5"> 
+                        <i class="glyphicon glyphicon-search"></i>
+                        <i class="icoSeparador">&nbsp;</i>
+                        <i class="glyphicon glyphicon-plus-sign" ng-click="showModal()"></i>                                                                        
+                    </nav>
+                </div>
+            </header>
+
+            <div ng-controller='notasLayout'>
+
+                <div class="bodyPrincipal">
+
+                    <div id="notasLayout" class="notasLayout">
+                        <div ng-if="notas.length > 0">
+                            <article class="notaItem" ng-class="getClassNota(nota.tipo)" ng-repeat='nota in notas | filter : tipoNota | orderBy : predicate : reverse'>                
+                                <header class="notaHeader">
+                                    <div class="notaAcciones">
+                                        <i class="glyphicon glyphicon-remove-sign colorPrimaryDark borrarNota" ng-click="deleteNota(nota)"></i>
+                                    </div>                            
+                                    <h5 class="notaTitular colorAmarilloOscuro">{{nota.titular}}</h5>                            
+                                </header>
+                                <div class="notaDesarrollo">
+                                     {{nota.desarrollo}} 
+                                </div>                    
+                                <div class="notaFooter font15">
+                                    <i class="glyphicon glyphicon-plus colorPrimaryDark"></i>
+                                </div>
+                            </article> 
+                        </div>
+                        <div class="centrado" ng-if="notas.length == 0">
+                            <img src="img/ops.png" width="128" height="128" />
+                            <p class="bocadillo">Sin resultados</p>                            
+                        </div>
+                    </div>
+                
+                </div>  
+
+                <footer class="footerPrincipal">
+                    <div class="row">
+                        <div class="font20 col-xs-9 col-sm-9 col-md-9 row marginLeft5px">
+                            <div class="col-xs-2 col-sm-2 col-md-2 colorGris">
+                                <i class="glyphicon glyphicon-sort" ng-click="predicate = 'indexado'; reverse=!reverse"></i>
+                            </div>                        
+                            <div class="col-xs-2 col-sm-2 col-md-2 colorAmarillo">
+                                <i class="glyphicon glyphicon-comment" data-tipoNota="1" ng-click="filterNota($event)"></i>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 colorRojo">
+                                <i class="glyphicon glyphicon-comment" data-tipoNota="2" ng-click="filterNota($event)"></i>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 colorVerde">
+                                <i class="glyphicon glyphicon-comment" data-tipoNota="3" ng-click="filterNota($event)"></i>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 colorAzul">
+                                <i class="glyphicon glyphicon-comment" data-tipoNota="4" ng-click="filterNota($event)"></i>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 colorRosa">
+                                <i class="glyphicon glyphicon-comment" data-tipoNota="5" ng-click="filterNota($event)"></i>
+                            </div>                    
+                        </div>
+                        <div class="font20 col-xs-3 col-sm-3 col-md-3 textAlignRight colorGris">
+                            <i class="glyphicon glyphicon-trash" ng-click="showNotasBorradas()"></i>
+                        </div>
+                    </div>
+                </footer>
+
+            </div>
+
+        </section>
+
+        <section class="modalBasico oculto opacidad" id="js-modalBasico" ng-controller="addNota">
+                <article class="modalBasicoMain">
+
+                    <div class="modalBasicoBody">
+                        <div class="input-group">
+                          <span class="input-group-addon"><span class="glyphicon glyphicon-tag"></span></span>
+                          <input type="text" class="form-control" id="js-addNota-inputTitular">                          
+                        </div>
+
+                        <div class="toolbar">
+                                <button class="js-botonToolbar"><i class="fa fa-bold" data-type="bold" ng-click="estilos($event)"></i></button>
+                                <button class="js-botonToolbar"><i class="fa fa-italic" data-type="italic" ng-click="estilos($event)"></i></button>
+                                <button class="js-botonToolbar"><i class="fa fa-strikethrough" data-type="strikeThrough" ng-click="estilos($event)"></i></button>
+                                <button class="js-botonToolbar"><i class="fa fa-underline" data-type="underline"  ng-click="estilos($event)"></i></button>
+                                <button class="js-botonToolbar"><i class="fa fa-list-ul" data-type="insertUnorderedList" ng-click="estilos($event)"></i></button>
+                                <!-- <button class="js-botonToolbar"><i class="fa fa-list-ol" data-type="insertOrderedList" ng-click="estilos($event)"></i></button> -->
+                                <button class="js-botonToolbar"><i class="fa fa-align-left" data-type="justifyLeft" ng-click="estilos($event)"></i></button>
+                                <button class="js-botonToolbar"><i class="fa fa-align-center" data-type="justifyCenter" ng-click="estilos($event)"></i></button>
+                                <button class="js-botonToolbar"><i class="fa fa-align-right" data-type="justifyRight" ng-click="estilos($event)"></i></button>
+                                <button class="js-botonToolbar"><i class="fa fa-eraser" data-type="removeFormat" ng-click="estilos($event)"></i></button>
+                        </div>
+
+                        <div class="addNotaEditor" contenteditable="true" id="js-addNota-inputDesarrollo"></div>
+
+                        <div class="font20 row toolbarInferior">               
+                            <div class="col-xs-2 col-sm-2 col-md-2 colorAmarillo"><i class="glyphicon glyphicon-comment js-botonesTipoNota adNotaTipoNotaSeleccionada" data-tipoNota="1" ng-click="tipoNota($event)"></i></div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 colorRojo"><i class="glyphicon glyphicon-comment js-botonesTipoNota" data-tipoNota="2" ng-click="tipoNota($event)"></i></div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 colorVerde"><i class="glyphicon glyphicon-comment js-botonesTipoNota" data-tipoNota="3" ng-click="tipoNota($event)"></i></div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 colorAzul"><i class="glyphicon glyphicon-comment js-botonesTipoNota" data-tipoNota="4" ng-click="tipoNota($event)"></i></div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 colorRosa"><i class="glyphicon glyphicon-comment js-botonesTipoNota" data-tipoNota="5" ng-click="tipoNota($event)"></i></div>                    
+                        </div>
+
+                    </div>
+                    <footer class="modalBasicoFooter">
+                        <div class="btn-group btn-group-justified">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger" ng-click="hideModal()">cancelar</button>
+                            </div>                        
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary" ng-click="addNota(1)">guardar</button>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-success" ng-click="addNota(2)">guardar y salir</button>
+                            </div>
+                        </div>                          
+                    </footer>
+                </article>
+            </section>
+
+
+            <section class="modalBasico oculto opacidad" id="js-modalRecuperarNotas" ng-controller="recuperarNotas">
+                <article class="modalBasicoMain">
+
+                    <div class="modalBasicoBody">
+                        {{enunciado}}
+                        <ul ng-repeat='nota in notasBorradas'>
+                            <li ng-click="recuperarNotasBorradas(nota)">{{nota.titular}}</li>
+                        </ul>
+                    </div>
+                    <footer class="modalBasicoFooter">
+                        <div class="btn-group btn-group-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger" ng-click="hideModalRecuperarNotas()">cerrar</button>
+                            </div>
+                        </div>                          
+                    </footer>
+                </article>
+            </section>
+
+        <script src="js/vendor/angular.min.js"></script>
+        <script src="js/app.js"></script>
+        <!-- <script src="js/animations.js"></script> -->
+        <script src="js/controllers.js"></script>
+        <!-- <script src="js/filters.js"></script> -->
+        <!-- <script src="js/services.js"></script> -->     
+        
+    </body>
+</html>

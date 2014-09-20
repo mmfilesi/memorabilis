@@ -1,0 +1,487 @@
+/* ==========================================================================
+   Notas
+   ========================================================================== */
+
+/*===================================
+    Mixins
+==================================== */
+
+@mixin bordeRedondeado($size: 5px) {
+  border-radius: $size;
+  -moz-border-radius: $size;
+  -webkit-border-radius: $size;
+  -o-border-radius: $size;
+}
+
+@mixin estratoPrincipal($height: 3em) {
+    position: absolute;
+    width: 100%;
+    display:block;
+    box-sizing: border-box;
+    height: $height;
+}
+
+/*===================================
+    Colores
+==================================== */
+
+/* Generales */
+
+$fondoPrincipal: #01243b;
+$fondoSecundario: #003559;
+$fondoSeparador: #011928;
+$fuenteTitulares: #b9dbf3;
+
+/* Notas */
+$fondoAmarillo: #fbff8c;
+$fondoVerde: #60c434;
+$fondoRosa: #fdc1f5;
+$fondoAzul: #aeddec;
+$fondoRojo: #ab0000;
+
+
+/*===================================
+    Fuentes
+====================================*/
+
+@font-face {
+    font-family: titular;
+    src: url(../fonts/Niconne-Regular.ttf);
+}
+
+
+@font-face {
+    font-family: desarrollo;
+    src: url(../fonts/Roboto-Regular.ttf);
+}
+
+/*===================================
+    Generales
+====================================*/
+
+
+html, body {
+    margin: 0px;
+    height: 100%;
+}
+
+body {
+    background: #000;    
+}
+
+
+.contenedorPrincipal {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 100%;
+    background: $fondoPrincipal;
+    min-width: 320px;
+    overflow: hidden;    
+    position: relative;
+    box-sizing: border-box;
+}
+
+@media screen and (orientation: landscape) {
+    .contenedorPrincipal {
+        max-width: 1024px;
+        max-height: 768px;
+    }
+}
+
+@media screen and (orientation: portrait) {
+    .contenedorPrincipal {
+        max-width: 768px;
+        max-height: 1024px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .contenedorPrincipal {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+}
+
+/* Header */
+
+.titularPrincipal {
+    background: $fondoSecundario;
+    border-bottom: 5px solid $fondoSeparador;
+    @include estratoPrincipal(3.5em);
+    top:0;   
+    color: $fuenteTitulares;    
+    h1 {        
+        margin: 0px;
+        padding: 0.25em 1em;
+        font-family: titular;
+        font-weight: 100;
+        font-size: 2em;
+    }
+}
+
+.icosCabecera {    
+    text-align: right;
+    padding: 7px 40px;
+    font-size: 2em;
+}
+
+@media screen and (max-width: 400px) {
+    .titularPrincipal > h1 {
+        font-size: 1.4em;
+    }
+
+    .icosCabecera  {
+        font-size: 1.5em;
+        padding: 10px 25px 15px 5px;
+    }
+
+    .icoSeparador {
+        width: 0.1em;
+    }
+}
+
+.bodyPrincipal {
+    position: absolute;
+    top:3.5em;
+    bottom:4em;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.footerPrincipal {
+    @include estratoPrincipal(4em);
+    bottom:0;
+    background: #051629;
+    border-top: 5px solid $fuenteTitulares;
+    padding: 0.5em;
+}
+
+
+/*===================================
+    Pantalla principal
+====================================*/
+
+.notasLayout {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5em;
+    margin-bottom: 2em;    
+    box-sizing: border-box;
+}
+
+.notaItem {
+    position: relative;
+    @include bordeRedondeado(0.3em);
+    margin: 1em;
+    padding: 1em;
+    display: inline-block;
+    vertical-align: top;
+    width: 180px;
+    height: 150px;
+    font-family: desarrollo;
+    overflow: hidden;
+}
+
+
+.notaDesarrollo {
+    margin-top: 0em;
+    margin-bottom: 0.3em;
+    font-size: 0.9em;
+}
+
+.notaTitular {
+    font-size: 1em;
+    font-weight: 800;
+    margin-top: 0em;
+    margin-bottom: 0.3em;    
+}
+
+.borrarNota {
+    position: absolute;
+    top: 0.2em;
+    right: .2em;
+    font-size: 1.5em;
+}
+
+.notaFooter {
+    text-align: center;
+    width: 80%;
+    position: absolute;
+    bottom: 0;
+}
+
+.fondoAmarillo {
+    border: 1px solid darken($fondoAmarillo, 50%);
+    background: $fondoAmarillo;
+    h5 {
+        color: darken($fondoAmarillo, 50%);
+    }
+}
+
+.fondoVerde {
+    border: 1px solid darken($fondoVerde, 50%);
+    background: $fondoVerde;
+    h5 {
+        color: darken($fondoVerde, 50%);
+    }
+}
+
+.fondoRosa {
+    border: 1px solid darken($fondoRosa, 50%);
+    background: $fondoRosa;
+    h5 {
+        color: darken($fondoRosa, 50%);
+    }
+}
+
+.fondoAzul {
+    border: 1px solid darken($fondoAzul, 50%);
+    background: $fondoAzul;
+    h5 {
+        color: darken($fondoAzul, 50%);
+    }
+}
+
+.fondoRojo {
+    border: 1px solid darken($fondoRojo, 50%);
+    background: $fondoRojo;
+    color: #fff;
+    h5 {
+       color: #feebeb;
+    }
+}
+
+.filtroActivoOn {
+    opacity: 0.5;
+}
+
+.bocadillo {
+    color: #fff;
+    font-size: 2em;
+    margin: 0.2em;
+    text-align: center;
+    font-family: titular;
+    width: 100%;
+}
+
+
+/*===================================
+    Modales
+====================================*/
+
+.modalBasico {
+    display:block;
+    position:absolute;
+    top:0;
+    left:0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 10;
+    padding: 1em;
+    -webkit-transition:all linear 0.5s;
+    transition:all linear 0.5s;            
+}
+
+.modalBasicoHeader {
+    background: #900;
+    font-weight: 900;
+    text-align: center;
+    border-bottom: 2px solid #090;
+    padding: 0.2em;            
+}
+
+.modalBasicoMain {
+    border-radius: 3px;           
+    background: #efecdd;
+    overflow: hidden;
+    border-top: 2px solid #f0e5ca;
+    border-left: 2px solid #f0e5ca;
+    border-right: 2px solid #f2dcb8;
+    border-bottom: 2px solid #f2dcb8;
+    padding: 0;
+}
+
+.modalBasicoBody {
+    margin: 1em 0;
+    padding: 0.3em;
+}
+
+.toolbar {
+    margin-top: 1em;
+    margin-bottom: 0.1em;
+    margin-left: 0;    
+}
+
+@media screen and (max-width: 400px) {
+    .toolbar {
+        text-align: center;        
+    }
+}        
+
+.addNotaEditor {
+    min-height:100px;
+    max-height:150px;
+    overflow-y: auto;
+    background: #fff;            
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    border: 1px solid #ccc;
+    border-radius: 4px;            
+}
+
+.toolbarInferior {
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+    text-align: center;
+}
+
+.botonToolbarActivado {
+   border: 1px solid #0089ff;
+}
+
+.botonToolbarInferiorActivado {
+   border-bottom: 1px dotted #0089ff;
+}
+
+.adNotaTipoNotaSeleccionada {
+    border-bottom: 2px dashed #0E427A;
+}
+
+/*===================================
+    QuickMode :P
+====================================*/
+
+.sombra5 {
+    -webkit-box-shadow: 4px 4px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    4px 4px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         4px 4px 5px 0px rgba(50, 50, 50, 0.75);
+}
+
+.floatRight {
+    float: right;
+}
+
+.textAlignRight {
+    text-align: right;
+}
+
+.centrado {
+    text-align: center;            
+}
+
+
+.inlineBlock {
+    display: inline-block;
+}
+
+.font1 {
+    font-size: 1em;
+}
+
+.font15 {
+    font-size: 1.5em;
+}
+
+.font20 {
+    font-size: 2em;
+}
+
+.font25 {
+    font-size: 2.5em;
+}
+
+.colorPrimaryDark {
+    color: $fondoPrincipal;
+}
+
+.colorAmarillo {
+    color: $fondoAmarillo;
+}
+
+.colorVerde {
+    color: $fondoVerde;
+}
+
+.colorRosa {
+    color: $fondoRosa;
+}
+
+.colorAzul {
+   color: $fondoAzul;
+}
+
+.colorRojo {
+    color: $fondoRojo;
+}
+
+.colorAmarilloOscuro {
+    color: darken($fondoAmarillo, 50%);
+}
+
+.colorVerdeOscuro {
+    color: darken($fondoVerde, 50%);
+}
+
+.colorRosaOscuro {
+    color: darken($fondoRosa, 50%);
+}
+
+.colorAzulOscuro {
+    color: darken($fondoAzul, 50%);
+}
+
+.colorRojoOscuro {
+    color: darken($fondoRojo, 50%);
+}
+
+.colorGris {
+    color: #ededed;
+}
+
+.listadosHorizontales {
+    list-style-type: none;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    li {
+        display: inline;
+        text-align: center;
+        margin: 0 1%;
+    }
+
+    .separador {
+        display: inline;
+        text-align: center;
+        margin: 0 3%;
+        border-left: 1px solid #900; 
+    }
+}
+
+.marginLeft5px {
+  margin-left: 5px;     
+}
+
+.oculto {
+    display:none;
+}
+
+.opacidad {
+  opacity: 0;
+}
+
+.subrayado {
+    text-decoration: underline;
+}
+
+.tachado {
+   text-decoration: line-through
+}
+
